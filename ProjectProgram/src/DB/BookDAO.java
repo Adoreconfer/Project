@@ -29,7 +29,7 @@ public class BookDAO implements IBookDAO{
     @Override
     public List<Book> getAllBooks() throws SQLException {
         List<Book> books = new ArrayList<>();
-        String sql = "SELECT * FROM book";
+        String sql = "SELECT * FROM book WHERE available_copies > 0";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
@@ -56,6 +56,28 @@ public class BookDAO implements IBookDAO{
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new Book(rs.getInt("id_book"),
+                            rs.getString("title"),
+                            rs.getString("author"),
+                            rs.getString("isbn"),
+                            rs.getInt("total_copies"),
+                            rs.getString("category"),
+                            rs.getInt("available_copies"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Book getBookByISBN(String isbn) throws SQLException{
+        String sql = "SELECT * FROM book WHERE isbn = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, isbn);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     return new Book(rs.getInt("id_book"),
@@ -102,4 +124,49 @@ public class BookDAO implements IBookDAO{
             e.printStackTrace();
         }
     }
+
+    public List<String> getAllCategory() throws SQLException {
+        String sql = "SELECT category FROM book GROUP BY category ASC";
+        List<String> category = new ArrayList<>();
+        category.add("All");
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    category.add(rs.getString("category"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return category;
+    }
+
+    public List<Book> searchBook(String title, String author, String category) throws SQLException{
+        List<Book> books = new ArrayList<>();
+        String sql = "SELECT * FROM book WHERE title LIKE ? AND author LIKE ? AND category LIKE ? AND available_copies > 0 ORDER BY title ASC";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, title + "%");
+            stmt.setString(2, author + "%");
+            stmt.setString(3, category + "%");
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    books.add(new Book(
+                            rs.getInt("id_book"),
+                            rs.getString("title"),
+                            rs.getString("author"),
+                            rs.getString("isbn"),
+                            rs.getInt("total_copies"),
+                            rs.getString("category"),
+                            rs.getInt("available_copies")
+                    ));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return books;
+    }
+
 }

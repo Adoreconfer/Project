@@ -26,18 +26,24 @@ public class LoginForm extends JFrame{
         this.setLocationRelativeTo(null);
 
 
-        UsersDAO usersCRUD = new UsersDAO();
+        UsersDAO usersDAO = new UsersDAO();
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     String userName = loginUser.getText();
                     String userPass = new String(passwordField1.getPassword());
-                    if(usersCRUD.authenticateUser(userName,userPass,"librarian")){
-                        System.out.println("Jestes bibliotekarzem");
+                    if(usersDAO.authenticateUser(userName,userPass,"librarian")){
+                        dispose();
+                        LibrarianForm librarianForm = new LibrarianForm(usersDAO.getUserInfo(userName));
+                        librarianForm.setVisible(true);
+                        //System.out.println("Jestes bibliotekarzem");
                     }
-                    if(usersCRUD.authenticateUser(userName,userPass,"reader")){
-                        System.out.println("Jestes uzytkownikiem");
+                    if(usersDAO.authenticateUser(userName,userPass,"reader")){
+                        dispose();
+                        ReaderForm readerForm = new ReaderForm(usersDAO.getUserInfo(userName));
+                        readerForm.setVisible(true);
+                        //System.out.println("Jestes uzytkownikiem");
                     }
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);

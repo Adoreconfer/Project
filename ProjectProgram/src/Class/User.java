@@ -1,6 +1,6 @@
 package Class;
 
-public abstract class User {
+public class User {
     protected int id;
     protected String username;
     protected String password;

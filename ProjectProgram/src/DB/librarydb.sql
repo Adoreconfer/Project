@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 25, 2025 at 09:42 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Хост: 127.0.0.1
+-- Час створення: Чрв 02 2025 р., 22:15
+-- Версія сервера: 10.4.32-MariaDB
+-- Версія PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `librarydb`
+-- База даних: `librarydb`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `book`
+-- Структура таблиці `book`
 --
 
 CREATE TABLE `book` (
@@ -38,7 +38,7 @@ CREATE TABLE `book` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `book`
+-- Дамп даних таблиці `book`
 --
 
 INSERT INTO `book` (`id_book`, `title`, `author`, `isbn`, `total_copies`, `category`, `available_copies`) VALUES
@@ -51,7 +51,7 @@ INSERT INTO `book` (`id_book`, `title`, `author`, `isbn`, `total_copies`, `categ
 -- --------------------------------------------------------
 
 --
--- Table structure for table `loan`
+-- Структура таблиці `loan`
 --
 
 CREATE TABLE `loan` (
@@ -67,7 +67,7 @@ CREATE TABLE `loan` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `useraccount`
+-- Структура таблиці `useraccount`
 --
 
 CREATE TABLE `useraccount` (
@@ -76,11 +76,11 @@ CREATE TABLE `useraccount` (
   `password` varchar(50) NOT NULL,
   `first_name` varchar(50) NOT NULL,
   `last_name` varchar(50) NOT NULL,
-  `role` enum('reader','librarian') NOT NULL
+  `role` enum('reader','librarian','banned') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `useraccount`
+-- Дамп даних таблиці `useraccount`
 --
 
 INSERT INTO `useraccount` (`id_user`, `username`, `password`, `first_name`, `last_name`, `role`) VALUES
@@ -90,18 +90,18 @@ INSERT INTO `useraccount` (`id_user`, `username`, `password`, `first_name`, `las
 (5, 'zofia14', 'zofia4321', 'Zofia ', 'Wiśniewska', 'reader');
 
 --
--- Indexes for dumped tables
+-- Індекси збережених таблиць
 --
 
 --
--- Indexes for table `book`
+-- Індекси таблиці `book`
 --
 ALTER TABLE `book`
   ADD PRIMARY KEY (`id_book`),
   ADD UNIQUE KEY `isbn` (`isbn`);
 
 --
--- Indexes for table `loan`
+-- Індекси таблиці `loan`
 --
 ALTER TABLE `loan`
   ADD PRIMARY KEY (`id_loan`),
@@ -109,39 +109,39 @@ ALTER TABLE `loan`
   ADD KEY `id_uzytkownik` (`id_user`);
 
 --
--- Indexes for table `useraccount`
+-- Індекси таблиці `useraccount`
 --
 ALTER TABLE `useraccount`
   ADD PRIMARY KEY (`id_user`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT для збережених таблиць
 --
 
 --
--- AUTO_INCREMENT for table `book`
+-- AUTO_INCREMENT для таблиці `book`
 --
 ALTER TABLE `book`
   MODIFY `id_book` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `loan`
+-- AUTO_INCREMENT для таблиці `loan`
 --
 ALTER TABLE `loan`
-  MODIFY `id_loan` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_loan` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT for table `useraccount`
+-- AUTO_INCREMENT для таблиці `useraccount`
 --
 ALTER TABLE `useraccount`
   MODIFY `id_user` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- Constraints for dumped tables
+-- Обмеження зовнішнього ключа збережених таблиць
 --
 
 --
--- Constraints for table `loan`
+-- Обмеження зовнішнього ключа таблиці `loan`
 --
 ALTER TABLE `loan`
   ADD CONSTRAINT `loan_ibfk_1` FOREIGN KEY (`id_book`) REFERENCES `book` (`id_book`) ON DELETE CASCADE,

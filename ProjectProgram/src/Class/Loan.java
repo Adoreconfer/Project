@@ -1,19 +1,30 @@
 package Class;
 
-public class Loan {
+public class Loan{
     private int id;
-    private int idloan;
+    private int idbook;
     private int iduser;
     private String duedate;
     private String loandate;
     private String returndate;
     private double fine;
+    private Book book;
 
-    public Loan(){}
+    public Book getBook() {
+        return book;
+    }
 
-    public Loan(int id, int idloan, int iduser, String duedate, String loandate, String returndate, double fine) {
+    public Loan(int id,Book book, String loandate, String duedate, double fine){
         this.id = id;
-        this.idloan = idloan;
+        this.book = book;
+        this.loandate = loandate;
+        this.duedate = duedate;
+        this.fine = fine;
+    }
+
+    public Loan(int id, int idbook, int iduser, String duedate, String loandate, String returndate, double fine) {
+        this.id = id;
+        this.idbook = idbook;
         this.iduser = iduser;
         this.duedate = duedate;
         this.loandate = loandate;
@@ -25,8 +36,8 @@ public class Loan {
         this.id = id;
     }
 
-    public void setIdloan(int idloan) {
-        this.idloan = idloan;
+    public void setIdbook(int idbook) {
+        this.idbook = idbook;
     }
 
     public void setIduser(int iduser) {
@@ -53,8 +64,8 @@ public class Loan {
         return id;
     }
 
-    public int getIdloan() {
-        return idloan;
+    public int getIdbook() {
+        return idbook;
     }
 
     public int getIduser() {

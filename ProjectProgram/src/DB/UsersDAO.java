@@ -1,6 +1,10 @@
 package DB;
+
+import Class.*;
 import java.sql.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UsersDAO implements IUserDAO{
 
@@ -60,5 +64,42 @@ public class UsersDAO implements IUserDAO{
             stmt.executeUpdate();
             System.out.println("PIN zmieniono!");
         }
+    }
+
+    public User getUserInfo(String username) throws SQLException{
+        String sql = "SELECT * FROM useraccount WHERE username = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new User(rs.getInt("id_user"),
+                            rs.getString("username"),
+                            rs.getString("password"),
+                            rs.getString("first_name"),
+                            rs.getString("last_name"),
+                            rs.getString("role"));
+                    //category.add(rs.getString("category"));
+                }
+            }
+        }
+        return null;
+    }
+
+    public List<String> showCategory(){
+        List<String> category = new ArrayList<>();
+        String sql = "SELECT category FROM book GROUP BY category";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    category.add(rs.getString("category"));
+                }
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return category;
     }
 }

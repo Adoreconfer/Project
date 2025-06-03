@@ -1,9 +1,8 @@
 package Forms;
 
-import Class.*;
 import DB.BookDAO;
-import DB.LoanDAO;
 
+import Class.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -12,21 +11,23 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.List;
 
-public class ReaderBookCatalog extends JFrame{
+public class LibrarianBookCatalog extends JFrame{
     private JPanel JPanel1;
     private JTextField textField1;
+    private JButton searchButton;
+    private JComboBox comboBox1;
+    private JRadioButton autorRadioButton;
+    private JRadioButton titleRadioButton;
+    private JRadioButton allRadioButton;
     private JTable table1;
     private JButton backButton;
-    private JButton loanBookButton;
-    private JRadioButton titleRadioButton;
-    private JRadioButton autorRadioButton;
-    private JComboBox comboBox1;
-    private JButton searchButton;
-    private JRadioButton allRadioButton;
+    private JButton addBookButton;
+    private JButton editBookButton;
+    private JButton deleteBookButton;
     private DefaultTableModel tableModel;
     BookDAO bookDAO = new BookDAO();
 
-    public ReaderBookCatalog(User reader) throws SQLException {
+    public LibrarianBookCatalog(User librarian) throws SQLException {
         super("Library | Catalog");
         this.setContentPane(JPanel1);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -42,13 +43,9 @@ public class ReaderBookCatalog extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                ReaderForm readerForm = null;
-                try {
-                    readerForm = new ReaderForm(reader);
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
-                }
-                readerForm.setVisible(true);
+                LibrarianForm librarianForm = null;
+                librarianForm = new LibrarianForm(librarian);
+                librarianForm.setVisible(true);
             }
         });
         searchButton.addActionListener(new ActionListener() {
@@ -57,21 +54,17 @@ public class ReaderBookCatalog extends JFrame{
                 updateData();
             }
         });
-        loanBookButton.addActionListener(new ActionListener() {
+        addBookButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                dispose();
+                LibrarianAddBook librarianAddBook = null;
                 try {
-                    int selectedRow = table1.getSelectedRow();
-                    String isbn = tableModel.getValueAt(selectedRow, 3).toString();
-
-                    LoanDAO loanDAO = new LoanDAO();
-                    loanDAO.addLoan(bookDAO.getBookByISBN(isbn), reader);
-                    updateData();
-                    JOptionPane.showMessageDialog(null, "Book loan successful");
+                    librarianAddBook = new LibrarianAddBook(librarian);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
                 }
-                catch (Exception e1){
-                    JOptionPane.showMessageDialog(null, "No row selected");
-                }
+                librarianAddBook.setVisible(true);
             }
         });
     }

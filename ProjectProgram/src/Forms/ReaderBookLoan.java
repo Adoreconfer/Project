@@ -65,7 +65,7 @@ public class ReaderBookLoan extends JFrame{
                         showData(loanDAO.viewLoans(reader));
                         JOptionPane.showMessageDialog(null, "You must pay the fine before returning the book\nReturn Blocked");
                     }
-                } catch (SQLException ex) {
+                } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "No row selected");
                 }
 

@@ -18,10 +18,10 @@ public class Registration extends JFrame{
     private JButton closeButton;
 
     public Registration(){
-        super("Registration");
+        super("Register");
         this.setContentPane(JPanel1);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        int width = 300, height = 200;
+        int width = 400, height = 300;
         this.setSize(width, height);
         Image icon = Toolkit.getDefaultToolkit().getImage(LoginForm.class.getResource("/Images/reg.png"));
         this.setIconImage(icon);
@@ -47,7 +47,7 @@ public class Registration extends JFrame{
                     try {
                         if(usersCRUD.checkUser(userName)){
                             userNameField.setText("");
-                            JOptionPane.showMessageDialog(null, "This user already exists");
+                            JOptionPane.showMessageDialog(null, "This username already exists");
                         }
                         else{
                             usersCRUD.addUser(userName, userPassword, userFirstName,userLastName, "reader");

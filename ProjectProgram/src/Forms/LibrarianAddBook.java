@@ -1,39 +1,44 @@
 package Forms;
 
 import Class.*;
+import DB.BookDAO;
+
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.List;
 
-public class LibrarianForm extends JFrame{
-    private JLabel welcomeLbl;
-    private JButton logoutButton;
+public class LibrarianAddBook extends JFrame{
     private JPanel JPanel1;
-    private JButton bookCatalogButton;
-    private JButton viewUserListButton;
+    private JTextField titleField;
+    private JTextField authorField;
+    private JTextField categoryField;
+    private JPasswordField isbnField;
+    private JButton addBookButton;
+    private JButton closeButton;
+    private JSpinner spinner1;
+    private JComboBox comboBox1;
+    private DefaultTableModel tableModel;
+    BookDAO bookDAO = new BookDAO();
 
-    public LibrarianForm(User librarian){
-        super("Library | Librarian");
+    public LibrarianAddBook(User librarian) throws SQLException {
+        super("Library | Add book");
         this.setContentPane(JPanel1);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        int width = 400, height = 300;
+        int width = 500, height = 400;
         this.setSize(width, height);
         Image icon = Toolkit.getDefaultToolkit().getImage(LoginForm.class.getResource("/Images/book.png"));
         this.setIconImage(icon);
         this.setLocationRelativeTo(null);
 
-        welcomeLbl.setText("Welcome, "+librarian.getUsername());
-        logoutButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                LoginForm loginForm = new LoginForm();
-                loginForm.setVisible(true);
-            }
-        });
-        bookCatalogButton.addActionListener(new ActionListener() {
+        List<String> category = bookDAO.getAllCategory();
+        category.set(0, "New");
+        comboBox1.setModel(new DefaultComboBoxModel<>(category.toArray(new String[0])));
+
+        closeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();

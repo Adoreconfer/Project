@@ -20,7 +20,6 @@ public class UsersDAO implements IUserDAO{
         }
     }
 
-    //Dodanie
     public void addUser(String username, String pin, String imie, String nazwisko, String rola) throws SQLException{
         String sql = "INSERT INTO useraccount (username, password, first_name, last_name, role) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
@@ -31,13 +30,11 @@ public class UsersDAO implements IUserDAO{
             stmt.setString(4, nazwisko);
             stmt.setString(5, rola);
             stmt.executeUpdate();
-            //System.out.println("Użytkownik dodany!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    //Sprawdzenie czy istnieje juz taki uzytkownik
     public boolean checkUser(String username) throws SQLException{
         String sql = "SELECT COUNT(*) FROM useraccount WHERE username = ?";
         try (Connection conn = DBConnection.getConnection();
@@ -55,14 +52,12 @@ public class UsersDAO implements IUserDAO{
         return false;
     }
 
-    //Zmiana hasla
     public void changePass(String username, String newPass) throws SQLException{
         String sql = "UPDATE useraccount SET password = ? WHERE username = ?";
         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)){
             stmt.setString(1, newPass);
             stmt.setString(2, username);
             stmt.executeUpdate();
-            System.out.println("PIN zmieniono!");
         }
     }
 
@@ -79,27 +74,9 @@ public class UsersDAO implements IUserDAO{
                             rs.getString("first_name"),
                             rs.getString("last_name"),
                             rs.getString("role"));
-                    //category.add(rs.getString("category"));
                 }
             }
         }
         return null;
-    }
-
-    public List<String> showCategory(){
-        List<String> category = new ArrayList<>();
-        String sql = "SELECT category FROM book GROUP BY category";
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    category.add(rs.getString("category"));
-                }
-            }
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return category;
     }
 }

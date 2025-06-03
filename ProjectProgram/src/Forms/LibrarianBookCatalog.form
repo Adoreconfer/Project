@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Forms.ReaderBookCatalog">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Forms.LibrarianBookCatalog">
   <grid id="27dc6" binding="JPanel1" layout-manager="GridLayoutManager" row-count="4" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="10" left="10" bottom="10" right="10"/>
     <constraints>
@@ -8,7 +8,7 @@
     <properties/>
     <border type="none"/>
     <children>
-      <grid id="9ed25" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="6e679" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -16,7 +16,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="a19c6" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+          <component id="703c8" class="javax.swing.JTextField" binding="textField1" default-binding="true">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -24,7 +24,7 @@
             </constraints>
             <properties/>
           </component>
-          <component id="36385" class="javax.swing.JButton" binding="searchButton" default-binding="true">
+          <component id="e81e8" class="javax.swing.JButton" binding="searchButton" default-binding="true">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -34,7 +34,7 @@
           </component>
         </children>
       </grid>
-      <grid id="aa15a" layout-manager="GridLayoutManager" row-count="2" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="f255a" layout-manager="GridLayoutManager" row-count="2" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -42,7 +42,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="ef465" class="javax.swing.JLabel">
+          <component id="5d629" class="javax.swing.JLabel">
             <constraints>
               <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -50,13 +50,13 @@
               <text value="Category"/>
             </properties>
           </component>
-          <component id="9a098" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
+          <component id="ad94e" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
             <constraints>
               <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties/>
           </component>
-          <component id="31bcb" class="javax.swing.JRadioButton" binding="autorRadioButton" default-binding="true">
+          <component id="37b3c" class="javax.swing.JRadioButton" binding="autorRadioButton" default-binding="true">
             <constraints>
               <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -64,7 +64,7 @@
               <text value="Autor"/>
             </properties>
           </component>
-          <component id="8b090" class="javax.swing.JRadioButton" binding="titleRadioButton" default-binding="true">
+          <component id="3b41a" class="javax.swing.JRadioButton" binding="titleRadioButton" default-binding="true">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -72,7 +72,7 @@
               <text value="Title"/>
             </properties>
           </component>
-          <component id="f4b88" class="javax.swing.JRadioButton" binding="allRadioButton" default-binding="true">
+          <component id="91dad" class="javax.swing.JRadioButton" binding="allRadioButton" default-binding="true">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -82,7 +82,7 @@
           </component>
         </children>
       </grid>
-      <grid id="cbcdd" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="6efc1" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -90,14 +90,14 @@
         <properties/>
         <border type="none"/>
         <children>
-          <scrollpane id="af625">
+          <scrollpane id="d175">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties/>
             <border type="none"/>
             <children>
-              <component id="3e6e2" class="javax.swing.JTable" binding="table1" default-binding="true">
+              <component id="fc8" class="javax.swing.JTable" binding="table1" default-binding="true">
                 <constraints/>
                 <properties/>
               </component>
@@ -105,7 +105,7 @@
           </scrollpane>
         </children>
       </grid>
-      <grid id="a85f4" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="766d" layout-manager="GridLayoutManager" row-count="1" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -113,7 +113,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="b7a6d" class="javax.swing.JButton" binding="backButton" default-binding="true">
+          <component id="5fc83" class="javax.swing.JButton" binding="backButton" default-binding="true">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -121,12 +121,28 @@
               <text value="Back"/>
             </properties>
           </component>
-          <component id="42991" class="javax.swing.JButton" binding="loanBookButton" default-binding="true">
+          <component id="b29ac" class="javax.swing.JButton" binding="addBookButton" default-binding="true">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Loan Book"/>
+              <text value="Add Book"/>
+            </properties>
+          </component>
+          <component id="9e104" class="javax.swing.JButton" binding="editBookButton" default-binding="true">
+            <constraints>
+              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Edit book"/>
+            </properties>
+          </component>
+          <component id="22657" class="javax.swing.JButton" binding="deleteBookButton" default-binding="true">
+            <constraints>
+              <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Delete book"/>
             </properties>
           </component>
         </children>
@@ -135,9 +151,9 @@
   </grid>
   <buttonGroups>
     <group name="buttonGroup1">
-      <member id="31bcb"/>
-      <member id="8b090"/>
-      <member id="f4b88"/>
+      <member id="91dad"/>
+      <member id="3b41a"/>
+      <member id="37b3c"/>
     </group>
   </buttonGroups>
 </form>

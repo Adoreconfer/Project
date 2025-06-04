@@ -15,6 +15,15 @@ public class Book {
         this.isbn = isbn;
     }
 
+    public Book(String title, String author, String isbn, int totalcopies, String category, int availablecopies) {
+        this.title = title;
+        this.author = author;
+        this.isbn = isbn;
+        this.totalcopies = totalcopies;
+        this.category = category;
+        this.availablecopies = availablecopies;
+    }
+
     public Book(int id, String title, String author, String isbn, int totalcopies, String category, int availablecopies) {
         this.id = id;
         this.title = title;

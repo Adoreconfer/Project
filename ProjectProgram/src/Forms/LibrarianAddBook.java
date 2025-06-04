@@ -16,7 +16,7 @@ public class LibrarianAddBook extends JFrame{
     private JTextField titleField;
     private JTextField authorField;
     private JTextField categoryField;
-    private JPasswordField isbnField;
+    private JTextField isbnField;
     private JButton addBookButton;
     private JButton closeButton;
     private JSpinner spinner1;
@@ -49,6 +49,59 @@ public class LibrarianAddBook extends JFrame{
                     throw new RuntimeException(ex);
                 }
                 librarianBookCatalog.setVisible(true);
+            }
+        });
+        addBookButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String title = titleField.getText();
+                String author = authorField.getText();
+                String category;
+                String isbn = isbnField.getText().trim();
+                int total_copies = (int) spinner1.getValue();
+                if (title == null || title.trim().isEmpty() ||
+                        author == null || author.trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Fill all fields");
+                    return;
+                }
+                String selectedCategory = comboBox1.getItemAt(comboBox1.getSelectedIndex()).toString();
+                if (selectedCategory.equals("New")) {
+                    category = categoryField.getText().trim();
+                    if (category.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Enter a category in the text field or select one from the list.");
+                        return;
+                    }
+                } else {
+                    category = selectedCategory;
+                }
+                if(total_copies<=0) {
+                    JOptionPane.showMessageDialog(null, "Set a number greater than 0");
+                    return;
+                }
+                if (isbn == null || !isbn.matches("\\d{13}")) {
+                    JOptionPane.showMessageDialog(null, "ISBN must be a 13-digit number");
+                    return;
+                }
+                try {
+                    if(bookDAO.getBookByISBN(isbn)!=null){
+                        JOptionPane.showMessageDialog(null, "This ISBN already exists");
+                        return;
+                    }
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+                try {
+                    bookDAO.addBook(new Book(title, author, isbn, total_copies, category, total_copies));
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+                titleField.setText("");
+                authorField.setText("");
+                categoryField.setText("");
+                isbnField.setText("");
+                comboBox1.setSelectedIndex(0);
+                spinner1.setValue(0);
+                JOptionPane.showMessageDialog(null, "Book has been added successfully!");
             }
         });
     }

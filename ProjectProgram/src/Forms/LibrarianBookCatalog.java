@@ -3,6 +3,8 @@ package Forms;
 import DB.BookDAO;
 
 import Class.*;
+import DB.LoanDAO;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -65,6 +67,22 @@ public class LibrarianBookCatalog extends JFrame{
                     throw new RuntimeException(ex);
                 }
                 librarianAddBook.setVisible(true);
+            }
+        });
+        deleteBookButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    int selectedRow = table1.getSelectedRow();
+                    String isbn = tableModel.getValueAt(selectedRow, 3).toString();
+
+                    bookDAO.deleteBook(bookDAO.getBookByISBN(isbn).getId());
+                    updateData();
+                    JOptionPane.showMessageDialog(null, "Book deleted successful");
+                }
+                catch (Exception e1){
+                    JOptionPane.showMessageDialog(null, "No row selected");
+                }
             }
         });
     }

@@ -11,15 +11,16 @@ import java.util.List;
 public class BookDAO implements IBookDAO{
     @Override
     public void addBook(Book book) throws SQLException {
-        String sql = "INSERT INTO book (title, author, isbn, total_copies, category, available_copies) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO book (title, author, isbn, publication_year, total_copies, category, available_copies) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, book.getTitle());
             stmt.setString(2, book.getAuthor());
             stmt.setString(3, book.getIsbn());
-            stmt.setInt(4, book.getTotalcopies());
-            stmt.setString(5, book.getCategory());
-            stmt.setInt(6, book.getAvailablecopies());
+            stmt.setInt(4, book.getPublication_year());
+            stmt.setInt(5, book.getTotalcopies());
+            stmt.setString(6, book.getCategory());
+            stmt.setInt(7, book.getAvailablecopies());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -39,6 +40,7 @@ public class BookDAO implements IBookDAO{
                         rs.getString("title"),
                         rs.getString("author"),
                         rs.getString("isbn"),
+                        rs.getInt("publication_year"),
                         rs.getInt("total_copies"),
                         rs.getString("category"),
                         rs.getInt("available_copies")
@@ -62,6 +64,7 @@ public class BookDAO implements IBookDAO{
                             rs.getString("title"),
                             rs.getString("author"),
                             rs.getString("isbn"),
+                            rs.getInt("publication_year"),
                             rs.getInt("total_copies"),
                             rs.getString("category"),
                             rs.getInt("available_copies"));
@@ -84,6 +87,7 @@ public class BookDAO implements IBookDAO{
                             rs.getString("title"),
                             rs.getString("author"),
                             rs.getString("isbn"),
+                            rs.getInt("publication_year"),
                             rs.getInt("total_copies"),
                             rs.getString("category"),
                             rs.getInt("available_copies"));
@@ -109,16 +113,17 @@ public class BookDAO implements IBookDAO{
 
     @Override
     public void updateBook(Book book) throws SQLException {
-        String sql = "UPDATE book SET title = ?, author = ?, isbn = ?, total_copies = ?, category = ?, available_copies = ? WHERE id_book = ?";
+        String sql = "UPDATE book SET title = ?, author = ?, isbn = ?, publication_year = ?, total_copies = ?, category = ?, available_copies = ? WHERE id_book = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, book.getTitle());
             stmt.setString(2, book.getAuthor());
             stmt.setString(3, book.getIsbn());
-            stmt.setInt(4, book.getTotalcopies());
-            stmt.setString(5, book.getCategory());
-            stmt.setInt(6, book.getAvailablecopies());
-            stmt.setInt(7, book.getId());
+            stmt.setInt(4, book.getPublication_year());
+            stmt.setInt(5, book.getTotalcopies());
+            stmt.setString(6, book.getCategory());
+            stmt.setInt(7, book.getAvailablecopies());
+            stmt.setInt(8, book.getId());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -157,6 +162,7 @@ public class BookDAO implements IBookDAO{
                             rs.getString("title"),
                             rs.getString("author"),
                             rs.getString("isbn"),
+                            rs.getInt("publication_year"),
                             rs.getInt("total_copies"),
                             rs.getString("category"),
                             rs.getInt("available_copies")

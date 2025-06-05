@@ -21,6 +21,7 @@ public class LibrarianEditBook extends JFrame{
     private JTextField isbnField;
     private JButton editBookButton;
     private JButton closeButton;
+    private JTextField publicationYearField;
     private DefaultTableModel tableModel;
     BookDAO bookDAO = new BookDAO();
 
@@ -42,6 +43,7 @@ public class LibrarianEditBook extends JFrame{
         authorField.setText(book.getAuthor());
         categoryField.setText(book.getCategory());
         isbnField.setText(book.getIsbn());
+        publicationYearField.setText(String.valueOf(book.getPublication_year()));
         spinner1.setValue(book.getTotalcopies());
 
         closeButton.addActionListener(new ActionListener() {
@@ -64,6 +66,7 @@ public class LibrarianEditBook extends JFrame{
                 String author = authorField.getText();
                 String category;
                 String isbn = isbnField.getText().trim();
+                int publication_year = Integer.parseInt(publicationYearField.getText());
                 int total_copies = (int) spinner1.getValue();
                 if (title == null || title.trim().isEmpty() ||
                         author == null || author.trim().isEmpty()) {
@@ -80,11 +83,11 @@ public class LibrarianEditBook extends JFrame{
                 } else {
                     category = selectedCategory;
                 }
-                if(total_copies<=0) {
+                if(total_copies<=0 || publication_year<0) {
                     JOptionPane.showMessageDialog(null, "Set a number greater than 0");
                     return;
                 }
-                if (isbn == null || !isbn.matches("\\d{13}")) {
+                if (!isbn.matches("\\d{13}")) {
                     JOptionPane.showMessageDialog(null, "ISBN must be a 13-digit number");
                     return;
                 }
@@ -96,7 +99,7 @@ public class LibrarianEditBook extends JFrame{
                 try {
                     if(bookDAO.getBookByISBN(isbn)!=null){
                         JOptionPane.showMessageDialog(null, "This ISBN already exists");
-                        bookDAO.addBook(new Book(book.getId(), book.getTitle(), book.getAuthor(), book.getIsbn(), book.getTotalcopies(), book.getCategory(), book.getAvailablecopies()));
+                        bookDAO.addBook(new Book(book.getId(), book.getTitle(), book.getAuthor(), book.getIsbn(), book.getPublication_year(), book.getTotalcopies(), book.getCategory(), book.getAvailablecopies()));
                         return;
                     }
                 } catch (SQLException ex) {
@@ -109,7 +112,7 @@ public class LibrarianEditBook extends JFrame{
                         return;
                     }
                     else
-                        bookDAO.addBook(new Book(book.getId(), title, author, isbn, total_copies, category, book.getAvailablecopies()));
+                        bookDAO.addBook(new Book(book.getId(), title, author, isbn, publication_year,total_copies, category, book.getAvailablecopies()));
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }

@@ -8,6 +8,7 @@ public class Book {
     private int totalcopies;
     private String category;
     private int availablecopies;
+    private int publication_year;
 
     public Book(String title, String author, String isbn){
         this.title = title;
@@ -15,23 +16,33 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public Book(String title, String author, String isbn, int totalcopies, String category, int availablecopies) {
+    public Book(String title, String author, String isbn, int publication_year, int totalcopies, String category, int availablecopies) {
         this.title = title;
         this.author = author;
         this.isbn = isbn;
+        this.publication_year = publication_year;
         this.totalcopies = totalcopies;
         this.category = category;
         this.availablecopies = availablecopies;
     }
 
-    public Book(int id, String title, String author, String isbn, int totalcopies, String category, int availablecopies) {
+    public Book(int id, String title, String author, String isbn, int publication_year, int totalcopies, String category, int availablecopies) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.isbn = isbn;
+        this.publication_year = publication_year;
         this.totalcopies = totalcopies;
         this.category = category;
         this.availablecopies = availablecopies;
+    }
+
+    public void setPublication_year(int publication_year) {
+        this.publication_year = publication_year;
+    }
+
+    public int getPublication_year() {
+        return publication_year;
     }
 
     public void setId(int id) {

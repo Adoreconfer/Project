@@ -21,6 +21,7 @@ public class LibrarianAddBook extends JFrame{
     private JButton closeButton;
     private JSpinner spinner1;
     private JComboBox comboBox1;
+    private JTextField publicationYearField;
     private DefaultTableModel tableModel;
     BookDAO bookDAO = new BookDAO();
 
@@ -58,6 +59,7 @@ public class LibrarianAddBook extends JFrame{
                 String author = authorField.getText();
                 String category;
                 String isbn = isbnField.getText().trim();
+                int publication_year = Integer.parseInt(publicationYearField.getText());
                 int total_copies = (int) spinner1.getValue();
                 if (title == null || title.trim().isEmpty() ||
                         author == null || author.trim().isEmpty()) {
@@ -74,11 +76,11 @@ public class LibrarianAddBook extends JFrame{
                 } else {
                     category = selectedCategory;
                 }
-                if(total_copies<=0) {
+                if(total_copies<=0 || publication_year<0) {
                     JOptionPane.showMessageDialog(null, "Set a number greater than 0");
                     return;
                 }
-                if (isbn == null || !isbn.matches("\\d{13}")) {
+                if (!isbn.matches("\\d{13}")) {
                     JOptionPane.showMessageDialog(null, "ISBN must be a 13-digit number");
                     return;
                 }
@@ -91,7 +93,7 @@ public class LibrarianAddBook extends JFrame{
                     throw new RuntimeException(ex);
                 }
                 try {
-                    bookDAO.addBook(new Book(title, author, isbn, total_copies, category, total_copies));
+                    bookDAO.addBook(new Book(title, author, isbn, publication_year,total_copies, category, total_copies));
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -99,6 +101,7 @@ public class LibrarianAddBook extends JFrame{
                 authorField.setText("");
                 categoryField.setText("");
                 isbnField.setText("");
+                publicationYearField.setText("");
                 comboBox1.setSelectedIndex(0);
                 spinner1.setValue(0);
                 JOptionPane.showMessageDialog(null, "Book has been added successfully!");

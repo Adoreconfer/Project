@@ -107,7 +107,7 @@ public class LibrarianBookCatalog extends JFrame{
 
     public void showData(List<Book> books) throws SQLException {
         String[] columnNames = new String[] {
-                "Title","Author","Category","ISBN","Available Copies"
+                "Title","Author","Category","ISBN","Publication year","Available Copies"
         };
 
         tableModel = new DefaultTableModel(columnNames, 0){
@@ -125,6 +125,7 @@ public class LibrarianBookCatalog extends JFrame{
                     b.getAuthor(),
                     b.getCategory(),
                     b.getIsbn(),
+                    String.valueOf(b.getPublication_year()),
                     String.valueOf(b.getAvailablecopies())
             };
             tableModel.addRow(rowData);

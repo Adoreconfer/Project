@@ -52,10 +52,6 @@ public class LoginForm extends JFrame{
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
-                finally {
-                    loginUser.setText("");
-                    passwordField1.setText("");
-                }
             }
         });
         registrationButton.addActionListener(new ActionListener() {

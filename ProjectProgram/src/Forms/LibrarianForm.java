@@ -13,6 +13,11 @@ public class LibrarianForm extends JFrame{
     private JPanel JPanel1;
     private JButton bookCatalogButton;
     private JButton viewUserListButton;
+    private JButton exportDataButton;
+    private JButton importDataButton;
+    private JCheckBox loansCheckBox1;
+    private JCheckBox booksCheckBox1;
+    private JCheckBox booksCheckBox;
 
     public LibrarianForm(User librarian){
         super("Library | Librarian");
@@ -44,6 +49,19 @@ public class LibrarianForm extends JFrame{
                     throw new RuntimeException(ex);
                 }
                 librarianBookCatalog.setVisible(true);
+            }
+        });
+        viewUserListButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                ViewUserListForm viewUserListForm = null;
+                try {
+                    viewUserListForm = new ViewUserListForm(librarian);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+                viewUserListForm.setVisible(true);
             }
         });
     }

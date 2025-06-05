@@ -79,4 +79,47 @@ public class UsersDAO implements IUserDAO{
         }
         return null;
     }
+
+    public List<User> getAllUsers() throws SQLException{
+        String sql = "SELECT * FROM useraccount WHERE role = 'reader' ORDER BY username ASC";
+        List<User> users = new ArrayList<>();
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    users.add(new User(rs.getInt("id_user"),
+                            rs.getString("username"),
+                            rs.getString("password"),
+                            rs.getString("first_name"),
+                            rs.getString("last_name"),
+                            rs.getString("role")));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+
+    public List<User> searchUsers(String username) throws SQLException{
+        List<User> users = new ArrayList<>();
+        String sql = "SELECT * FROM useraccount WHERE role = 'reader' AND username LIKE ? ORDER BY username ASC";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, username + "%");
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    users.add(new User(rs.getInt("id_user"),
+                            rs.getString("username"),
+                            rs.getString("password"),
+                            rs.getString("first_name"),
+                            rs.getString("last_name"),
+                            rs.getString("role")));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
 }

@@ -85,6 +85,24 @@ public class LibrarianBookCatalog extends JFrame{
                 }
             }
         });
+        editBookButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    int selectedRow = table1.getSelectedRow();
+                    String isbn = tableModel.getValueAt(selectedRow, 3).toString();
+
+                    dispose();
+                    LibrarianEditBook librarianEditBook = new LibrarianEditBook(librarian, bookDAO.getBookByISBN(isbn));
+                    librarianEditBook.setVisible(true);
+                    //updateData();
+                    //JOptionPane.showMessageDialog(null, "Book edited successful");
+                }
+                catch (Exception e1){
+                    JOptionPane.showMessageDialog(null, "No row selected");
+                }
+            }
+        });
     }
 
     public void showData(List<Book> books) throws SQLException {

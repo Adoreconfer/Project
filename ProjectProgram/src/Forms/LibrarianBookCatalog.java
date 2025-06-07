@@ -95,8 +95,6 @@ public class LibrarianBookCatalog extends JFrame{
                     dispose();
                     LibrarianEditBook librarianEditBook = new LibrarianEditBook(librarian, bookDAO.getBookByISBN(isbn));
                     librarianEditBook.setVisible(true);
-                    //updateData();
-                    //JOptionPane.showMessageDialog(null, "Book edited successful");
                 }
                 catch (Exception e1){
                     JOptionPane.showMessageDialog(null, "No row selected");

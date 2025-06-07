@@ -1,0 +1,5 @@
+id_user,username,password,first_name,last_name,role
+1,admin,admin1234,Jan ,Kowalski,librarian
+2,user,user1234,Ala,Kowalska,reader
+4,tom,1234,Tom,Nowak,reader
+5,zofia14,zofia4321,Zofia ,Wiśniewska,reader

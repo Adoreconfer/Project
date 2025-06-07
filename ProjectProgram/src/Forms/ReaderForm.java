@@ -16,7 +16,7 @@ public class ReaderForm extends JFrame{
     private JButton logoutButton;
 
     public ReaderForm(User reader) throws SQLException {
-        super("Library | Reader");
+        super("Library | Menu");
         this.setContentPane(JPanel1);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         int width = 400, height = 300;
@@ -53,7 +53,7 @@ public class ReaderForm extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                ReaderBookLoan readerBookLoan = new ReaderBookLoan(reader);
+                ReaderBookLoan readerBookLoan = new ReaderBookLoan(reader, reader);
                 readerBookLoan.setVisible(true);
             }
         });

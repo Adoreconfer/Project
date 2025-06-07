@@ -16,6 +16,13 @@ public class Book {
         this.isbn = isbn;
     }
 
+    public Book(String title, String author, String category, String isbn){
+        this.title = title;
+        this.author = author;
+        this.category = category;
+        this.isbn = isbn;
+    }
+
     public Book(String title, String author, String isbn, int publication_year, int totalcopies, String category, int availablecopies) {
         this.title = title;
         this.author = author;

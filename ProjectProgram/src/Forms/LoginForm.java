@@ -16,7 +16,7 @@ public class LoginForm extends JFrame{
     private JButton registrationButton;
 
     public LoginForm(){
-        super("Login");
+        super("Library | Login");
         this.setContentPane(JPanel1);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         int width = 400, height = 300;
@@ -33,10 +33,7 @@ public class LoginForm extends JFrame{
                 try {
                     String userName = loginUser.getText();
                     String userPass = new String(passwordField1.getPassword());
-                    if(usersDAO.authenticateUser(userName,userPass,"banned")){
-                        JOptionPane.showMessageDialog(null, "This account has been disabled.\nContact support for more information.");
-                    }
-                    else if (usersDAO.authenticateUser(userName, userPass, "librarian")) {
+                    if (usersDAO.authenticateUser(userName, userPass, "librarian")) {
                             dispose();
                             LibrarianForm librarianForm = new LibrarianForm(usersDAO.getUserInfo(userName));
                             librarianForm.setVisible(true);

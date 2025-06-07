@@ -18,7 +18,7 @@ public class Registration extends JFrame{
     private JButton closeButton;
 
     public Registration(){
-        super("Register");
+        super("Library | Register");
         this.setContentPane(JPanel1);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         int width = 400, height = 300;

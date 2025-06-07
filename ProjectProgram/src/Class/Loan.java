@@ -9,12 +9,10 @@ public class Loan{
     private String returndate;
     private double fine;
     private Book book;
+    private String username;
+    private String status;
 
-    public Book getBook() {
-        return book;
-    }
-
-    public Loan(int id,Book book, String loandate, String duedate, double fine){
+    public Loan(int id, Book book, String loandate, String duedate, double fine){
         this.id = id;
         this.book = book;
         this.loandate = loandate;
@@ -30,6 +28,14 @@ public class Loan{
         this.loandate = loandate;
         this.returndate = returndate;
         this.fine = fine;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public String getUser() {
+        return username;
     }
 
     public void setId(int id) {
@@ -87,4 +93,13 @@ public class Loan{
     public double getFine() {
         return fine;
     }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
 }

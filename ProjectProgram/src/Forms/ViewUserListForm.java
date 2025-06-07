@@ -1,6 +1,7 @@
 package Forms;
 
 import Class.*;
+import DB.LoanDAO;
 import DB.UsersDAO;
 
 import javax.swing.*;
@@ -59,7 +60,17 @@ public class ViewUserListForm extends JFrame {
         moreInfoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int selectedRow = table1.getSelectedRow();
+                String username = (String) tableModel.getValueAt(selectedRow, 3);
+                dispose();
+                ReaderBookLoan readerBookLoan = null;
+                try {
 
+                    readerBookLoan = new ReaderBookLoan(usersDAO.getUserInfo(username), librarian);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+                readerBookLoan.setVisible(true);
             }
         });
     }

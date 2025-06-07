@@ -21,7 +21,7 @@ public class ReaderBookLoan extends JFrame{
     LoanDAO loanDAO = new LoanDAO();
     BookDAO bookDAO = new BookDAO();
 
-    public ReaderBookLoan(User reader){
+    public ReaderBookLoan(User reader, User user){
         super("Library | Loan");
         this.setContentPane(JPanel1);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -31,8 +31,15 @@ public class ReaderBookLoan extends JFrame{
         this.setIconImage(icon);
         this.setLocationRelativeTo(null);
 
+        if(user.getRole().equals("librarian")){
+            returnBookButton.setVisible(true);
+        }
+        else{
+            returnBookButton.setVisible(false);
+        }
+
         try {
-            showData(loanDAO.viewLoans(reader));
+            showData(loanDAO.viewLoans(reader), reader);
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
@@ -40,13 +47,24 @@ public class ReaderBookLoan extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                ReaderForm readerForm = null;
-                try {
-                    readerForm = new ReaderForm(reader);
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
+                if(user.getRole().equals("reader")) {
+                    ReaderForm readerForm = null;
+                    try {
+                        readerForm = new ReaderForm(reader);
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    readerForm.setVisible(true);
                 }
-                readerForm.setVisible(true);
+                else{
+                    ViewUserListForm viewUserListForm = null;
+                    try {
+                        viewUserListForm = new ViewUserListForm(user);
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    viewUserListForm.setVisible(true);
+                }
             }
         });
         returnBookButton.addActionListener(new ActionListener() {
@@ -57,14 +75,9 @@ public class ReaderBookLoan extends JFrame{
                     String isbn = tableModel.getValueAt(selectedRow, 3).toString();
                     int id = Integer.parseInt(tableModel.getValueAt(selectedRow, 0).toString());
                     LoanDAO loanDAO = new LoanDAO();
-                    if(loanDAO.returnLoan(bookDAO.getBookByISBN(isbn), reader, id)){
-                        tableModel.removeRow(selectedRow);
-                        JOptionPane.showMessageDialog(null, "Book returned successfully");
-                    }
-                    else{
-                        showData(loanDAO.viewLoans(reader));
-                        JOptionPane.showMessageDialog(null, "You must pay the fine before returning the book\nReturn Blocked");
-                    }
+                    loanDAO.returnLoan(bookDAO.getBookByISBN(isbn), reader, id);
+                    tableModel.removeRow(selectedRow);
+                    JOptionPane.showMessageDialog(null, "Book returned successfully");
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "No row selected");
                 }
@@ -73,7 +86,7 @@ public class ReaderBookLoan extends JFrame{
         });
     }
 
-    public void showData(List<Loan> loans) throws SQLException {
+    public void showData(List<Loan> loans, User reader) throws SQLException {
         String[] columnNames = new String[] {
                 "Id","Title","Author","ISBN","Loan date","Due date","Fine"
         };
@@ -88,6 +101,7 @@ public class ReaderBookLoan extends JFrame{
 
         String[] rowData;
         for (Loan l: loans){
+            loanDAO.checkFine(bookDAO.getBookByISBN(l.getBook().getIsbn()), reader, l.getId());
             rowData = new String[]{
                     String.valueOf(l.getId()),
                     l.getBook().getTitle(),

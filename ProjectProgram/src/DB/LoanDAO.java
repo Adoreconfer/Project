@@ -32,9 +32,7 @@ public class LoanDAO implements ILoanDAO{
 
     @Override
     public boolean returnLoan(Book book, User reader, int idloan) throws SQLException {
-        checkFine(book, reader, idloan);
-        if(calculateFine(book, reader, idloan) == 0.0){
-            String sql = "DELETE FROM loan WHERE id_book = ? AND id_user = ? AND id_loan = ?";
+            String sql = "UPDATE loan SET status = 'returned', return_date = CURDATE() WHERE id_book = ? AND id_user = ? AND id_loan = ?";
             String sqlset = "UPDATE book SET available_copies = available_copies+1 WHERE id_book = ?";
             try (Connection conn = DBConnection.getConnection()){
                  try(PreparedStatement delStmt = conn.prepareStatement(sql);
@@ -51,16 +49,12 @@ public class LoanDAO implements ILoanDAO{
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }
-        else{
-            return false;
-        }
         return false;
     }
 
     public List<Loan> viewLoans(User reader) throws SQLException{
         List<Loan> loan = new ArrayList<>();
-        String sql = "SELECT l.id_loan, b.title, b.author, b.isbn, l.loan_date, l.due_date, l.fine FROM loan l JOIN book b ON l.id_book = b.id_book WHERE l.id_user = ?";
+        String sql = "SELECT l.id_loan, b.title, b.author, b.isbn, l.loan_date, l.due_date, l.fine FROM loan l JOIN book b ON l.id_book = b.id_book WHERE l.id_user = ? AND l.status = 'loaned'";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)){
              stmt.setInt(1, reader.getId());
@@ -79,6 +73,7 @@ public class LoanDAO implements ILoanDAO{
         }
         return loan;
     }
+
 
     @Override
     public void checkFine(Book book, User reader, int idloan) throws SQLException {

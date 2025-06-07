@@ -8,7 +8,6 @@ import java.util.List;
 
 public class UsersDAO implements IUserDAO{
 
-    //Uwierzytelnianie użytkownika
     public boolean authenticateUser(String username, String pin, String role) throws SQLException {
         String sql = "SELECT * FROM useraccount WHERE username = ? AND password = ? AND role = ?";
         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -52,15 +51,6 @@ public class UsersDAO implements IUserDAO{
         return false;
     }
 
-    public void changePass(String username, String newPass) throws SQLException{
-        String sql = "UPDATE useraccount SET password = ? WHERE username = ?";
-        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)){
-            stmt.setString(1, newPass);
-            stmt.setString(2, username);
-            stmt.executeUpdate();
-        }
-    }
-
     public User getUserInfo(String username) throws SQLException{
         String sql = "SELECT * FROM useraccount WHERE username = ?";
         try (Connection conn = DBConnection.getConnection();
@@ -78,27 +68,6 @@ public class UsersDAO implements IUserDAO{
             }
         }
         return null;
-    }
-
-    public List<User> getAllUsers() throws SQLException{
-        String sql = "SELECT * FROM useraccount WHERE role = 'reader' ORDER BY username ASC";
-        List<User> users = new ArrayList<>();
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    users.add(new User(rs.getInt("id_user"),
-                            rs.getString("username"),
-                            rs.getString("password"),
-                            rs.getString("first_name"),
-                            rs.getString("last_name"),
-                            rs.getString("role")));
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return users;
     }
 
     public List<User> searchUsers(String username) throws SQLException{

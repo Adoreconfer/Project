@@ -33,6 +33,10 @@ public class LoginForm extends JFrame{
                 try {
                     String userName = loginUser.getText();
                     String userPass = new String(passwordField1.getPassword());
+                    if (!DBConnection.testConnection()) {
+                        JOptionPane.showMessageDialog(null, "Cannot connect to the database. Please make sure that XAMPP and MySQL are running.");
+                        return;
+                    }
                     if (usersDAO.authenticateUser(userName, userPass, "librarian")) {
                             dispose();
                             LibrarianForm librarianForm = new LibrarianForm(usersDAO.getUserInfo(userName));

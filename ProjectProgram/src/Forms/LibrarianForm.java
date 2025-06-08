@@ -1,6 +1,7 @@
 package Forms;
 
 import Class.*;
+import DB.DBConnection;
 import DB.Data;
 
 import javax.swing.*;

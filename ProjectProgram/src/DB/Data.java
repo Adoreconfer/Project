@@ -203,7 +203,8 @@ public class Data {
                 stmt.setString(4, data[3].trim());
                 stmt.setDouble(5, Double.parseDouble(data[4].trim()));
                 stmt.setString(6, data[5].trim());
-                stmt.setString(7, data[6].trim());
+                if(data[6].trim().equals("null")) stmt.setNull(7, java.sql.Types.DATE);
+                else stmt.setString(7, data[6].trim());
                 stmt.setString(8, data[7].trim());
 
                 stmt.executeUpdate();

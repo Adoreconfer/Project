@@ -43,6 +43,9 @@ public class Registration extends JFrame{
                         userLastName == null || userLastName.trim().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Fill all fields");
                 }
+                if(userName.matches(".*[,.!?].*") || userFirstName.matches(".*[,.!?].*") || userLastName.matches(".*[,.!?].*")){
+                    JOptionPane.showMessageDialog(null, "Do not enter the characters , . ! ?");
+                }
                 else{
                     try {
                         if(usersCRUD.checkUser(userName)){

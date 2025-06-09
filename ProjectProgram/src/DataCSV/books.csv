@@ -1,7 +1,6 @@
 id_book,title,author,isbn,total_copies,category,available_copies,publication_year
-8,Folwark zwierzęcy,George Orwell,9788370000011,8,Satira polityczna,8,2000
-9,Przedwiośnie,Stefan Żeromski,9788370000012,4,Powieść,4,2001
+9,Przedwiośnie,Stefan Żeromski,9788370000012,4,Powieść,3,2001
 13,Sklepy cynamonowe,Bruno Schulz,9788370000013,5,Opowiadania,4,2002
-18,Czysty Kod,Robert C. Martin,9788370000014,3,Nauka,3,2000
 21,Lalka,Prus,9788370000001,6,Powieść,6,2000
 23,Pan Tadeusz,Adam Mickiewicz,9788300000004,3,Epika,4,2001
+25,Folwark zwierzęcy,George Orwell,9788370000011,8,Satira polityczna,8,2000

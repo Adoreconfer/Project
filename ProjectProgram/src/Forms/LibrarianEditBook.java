@@ -91,6 +91,11 @@ public class LibrarianEditBook extends JFrame{
                     JOptionPane.showMessageDialog(null, "ISBN must be a 13-digit number");
                     return;
                 }
+                if(title.matches(".*[,.!?].*") || author.matches(".*[,.!?].*") || category.matches(".*[,.!?].*") ||
+                        isbn.matches(".*[,.!?].*")) {
+                    JOptionPane.showMessageDialog(null, "Do not enter the characters , . ! ?");
+                    return;
+                }
                 try {
                     bookDAO.deleteBook(book.getId());
                 } catch (SQLException ex) {

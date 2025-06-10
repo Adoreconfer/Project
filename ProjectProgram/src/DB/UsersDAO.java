@@ -91,4 +91,16 @@ public class UsersDAO implements IUserDAO{
         }
         return users;
     }
+
+    public void changePass(String username, String password) throws SQLException{
+        String sql = "UPDATE useraccount SET password = ? WHERE username = ?";
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, password);
+            stmt.setString(2, username);
+            stmt.executeUpdate();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

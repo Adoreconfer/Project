@@ -26,6 +26,7 @@ public class LibrarianForm extends JFrame{
     private JCheckBox loansCheckBox;
     private JCheckBox usersCheckBox;
     private JCheckBox usersCheckBox1;
+    private JButton changepassButton;
 
     public LibrarianForm(User librarian){
         super("Library | Menu");
@@ -131,6 +132,14 @@ public class LibrarianForm extends JFrame{
                     JOptionPane.showMessageDialog(null, "Lost connection");
                     throw new RuntimeException(ex);
                 }
+            }
+        });
+        changepassButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                ChangePasswordForm changePasswordForm = new ChangePasswordForm(librarian);
+                changePasswordForm.setVisible(true);
             }
         });
     }

@@ -14,6 +14,7 @@ public class ReaderForm extends JFrame{
     private JButton bookLoansButton;
     private JLabel welcomeLbl;
     private JButton logoutButton;
+    private JButton changepassButton;
 
     public ReaderForm(User reader) throws SQLException {
         super("Library | Menu");
@@ -55,6 +56,14 @@ public class ReaderForm extends JFrame{
                 dispose();
                 ReaderBookLoan readerBookLoan = new ReaderBookLoan(reader, reader);
                 readerBookLoan.setVisible(true);
+            }
+        });
+        changepassButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                ChangePasswordForm changePasswordForm = new ChangePasswordForm(reader);
+                changePasswordForm.setVisible(true);
             }
         });
     }

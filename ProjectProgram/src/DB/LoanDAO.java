@@ -61,7 +61,7 @@ public class LoanDAO implements ILoanDAO{
              try(ResultSet rs = stmt.executeQuery()){
                 while (rs.next()) {
                     loan.add(new Loan(rs.getInt("id_loan") ,new Book(rs.getString("title"),
-                            rs.getString("author"),
+                           rs.getString("author"),
                             rs.getString("isbn")),
                             rs.getString("loan_date"),
                             rs.getString("due_date"),

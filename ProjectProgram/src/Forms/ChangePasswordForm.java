@@ -53,6 +53,10 @@ public class ChangePasswordForm extends JFrame{
 
                 String pass = new String(passwordField.getPassword());
                 String confirmpass = new String(conpasswordField.getPassword());
+                if(pass == null || pass.trim().isEmpty() || confirmpass == null || confirmpass.trim().isEmpty()){
+                    JOptionPane.showMessageDialog(null, "Fill all fields");
+                    return;
+                }
                 if(pass.equals(confirmpass)){
                     try {
                         usersDAO.changePass(user.getUsername(), pass);

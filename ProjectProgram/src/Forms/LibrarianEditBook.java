@@ -97,14 +97,9 @@ public class LibrarianEditBook extends JFrame{
                     return;
                 }
                 try {
-                    bookDAO.deleteBook(book.getId());
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
-                }
-                try {
-                    if(bookDAO.getBookByISBN(isbn)!=null){
+                    Book existingBook = bookDAO.getBookByISBN(isbn);
+                    if (existingBook != null && existingBook.getId() != book.getId()) {
                         JOptionPane.showMessageDialog(null, "This ISBN already exists");
-                        bookDAO.addBook(new Book(book.getId(), book.getTitle(), book.getAuthor(), book.getIsbn(), book.getPublication_year(), book.getTotalcopies(), book.getCategory(), book.getAvailablecopies()));
                         return;
                     }
                 } catch (SQLException ex) {
@@ -117,7 +112,7 @@ public class LibrarianEditBook extends JFrame{
                         return;
                     }
                     else
-                        bookDAO.addBook(new Book(book.getId(), title, author, isbn, publication_year,total_copies, category, book.getAvailablecopies()));
+                        bookDAO.updateBook(new Book(book.getId(), title, author, isbn, publication_year, total_copies, category, book.getAvailablecopies()));
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }

@@ -27,6 +27,24 @@ public class BookDAO implements IBookDAO{
         }
     }
 
+    public void updateBook(Book book) throws SQLException {
+        String sql = "UPDATE book SET title = ?, author = ?, publication_year = ?, total_copies = ?, category = ?, available_copies = ? WHERE id_book = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, book.getTitle());
+            stmt.setString(2, book.getAuthor());
+            stmt.setInt(3, book.getPublication_year());
+            stmt.setInt(4, book.getTotalcopies());
+            stmt.setString(5, book.getCategory());
+            stmt.setInt(6, book.getAvailablecopies());
+            stmt.setInt(7, book.getId());
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public Book getBookByISBN(String isbn) throws SQLException{
         String sql = "SELECT * FROM book WHERE isbn = ?";
         try (Connection conn = DBConnection.getConnection();
